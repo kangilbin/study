@@ -3,6 +3,7 @@ package com.kang.study
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sub.*
@@ -34,6 +35,10 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "버튼이 클릭 되었습니다.", Toast.LENGTH_SHORT).show()
             iv_profile.setImageResource(R.drawable.ic_launcher_foreground)  // 이미지 뷰에 새로운 이미지 등록
         }
+        var item = arrayOf("사과","배","딸기","키위") // String 형태의 배열 선언
+        listView.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,item)  // 리스트 뷰는 어댑터가 항상 연결되어있어야 사용 가능
+        //context란 한 액티비티의 모든 정보를 담고있다.
+        //simple_list_item_1이라는 레이아웃에 item 배열을 넣어 준다.
 
     }
 }
