@@ -3,12 +3,20 @@ package com.kang.study
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Adapter
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sub.*
 
 class MainActivity : AppCompatActivity() {
+    var UserList = arrayListOf<User>(
+        User(R.drawable.android, "제이콥이네","29","안녕하세요."),
+        User(R.drawable.android, "콥일까?","28","안녕하세요."),
+        User(R.drawable.android, "콥이군","27","안녕하세요."),
+        User(R.drawable.android, "콥이라니!","26","안녕하세요.")
+    )
     override fun onCreate(savedInstanceState: Bundle?) { // Aictivity가 최초 실행되면 수행
         super.onCreate(savedInstanceState)
         //R은 res를 의미  res > layout > activity_main 을 불러와 연결
@@ -33,12 +41,19 @@ class MainActivity : AppCompatActivity() {
 
         btn_toast.setOnClickListener {
             Toast.makeText(this@MainActivity, "버튼이 클릭 되었습니다.", Toast.LENGTH_SHORT).show()
-            iv_profile.setImageResource(R.drawable.ic_launcher_foreground)  // 이미지 뷰에 새로운 이미지 등록
+            iv_list_profile.setImageResource(R.drawable.ic_launcher_foreground)  // 이미지 뷰에 새로운 이미지 등록
         }
         var item = arrayOf("사과","배","딸기","키위") // String 형태의 배열 선언
         listView.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,item)  // 리스트 뷰는 어댑터가 항상 연결되어있어야 사용 가능
         //context란 한 액티비티의 모든 정보를 담고있다.
         //simple_list_item_1이라는 레이아웃에 item 배열을 넣어 준다.
+        val Adapter = UserAdapter(this,UserList)
+        listView.adapter = Adapter
+        listView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val selectItem = parent.getItemAtPosition(position) as User //클릭한 인덱스 번호의 부모 객체
+            //as User로 만들어 줬기 때문에 User model에 있는 인자를 불러올 수 있다.
+            Toast.makeText(this, selectItem.name, Toast.LENGTH_SHORT).show()
 
+        }
     }
 }
