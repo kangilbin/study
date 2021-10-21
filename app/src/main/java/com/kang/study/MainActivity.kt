@@ -55,5 +55,25 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, selectItem.name, Toast.LENGTH_SHORT).show()
 
         }
+        //저장된 데이터 로드
+        loadData()
+    }
+    // edit text 저장된 값 불러오기
+    private fun loadData() {
+        val pref = getSharedPreferences("pref",0)
+        et_id.setText(pref.getString("name",""))
+    }
+
+    override fun onDestroy() { // 앱이 종료되는 시점이 다가올 때 흐름
+        super.onDestroy()
+
+        saveData()
+    }
+    //edit text 저장
+    private fun saveData() {
+        val pref = getSharedPreferences("pref",0)
+        val edit = pref.edit()  //수정 모드
+        edit.putString("name", et_id.text.toString()) //첫 번째 인자에는 key값, 두 번재 인자에는 value
+        edit.apply() // 저장
     }
 }
