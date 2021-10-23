@@ -11,6 +11,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sub.*
 
 class MainActivity : AppCompatActivity() {
+    val REQUEST_IMAGE_CAPTURE = 1 // 카메라 사진 촬영 요청 코드, 신호 값을 확인하기 위해 임의로 설정
+    lateinit var  cuPhotoPath: String // 문자열 형태의 사진 정보 값
+    //lateinit 은 초기 값을 null로 하고 싶을 때
     var UserList = arrayListOf<User>(
         User(R.drawable.android, "제이콥이네","29","안녕하세요."),
         User(R.drawable.android, "콥일까?","28","안녕하세요."),
@@ -38,7 +41,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent) // intent에 저장되어있는 액티비티로 이동
             finish()        //액티비티 파괴 뒤로가기해도 돌아올 수 없음 앱이 나가진다.
         }
-
+        btn_web.setOnClickListener {
+            var intent = Intent(this, webActivity::class.java)
+            startActivity(intent)
+        }
         btn_toast.setOnClickListener {
             Toast.makeText(this@MainActivity, "버튼이 클릭 되었습니다.", Toast.LENGTH_SHORT).show()
             iv_list_profile.setImageResource(R.drawable.ic_launcher_foreground)  // 이미지 뷰에 새로운 이미지 등록
@@ -57,6 +63,8 @@ class MainActivity : AppCompatActivity() {
         }
         //저장된 데이터 로드
         loadData()
+
+
     }
     // edit text 저장된 값 불러오기
     private fun loadData() {
