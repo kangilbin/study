@@ -20,6 +20,7 @@ import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sub.*
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.security.Permission
 import java.text.SimpleDateFormat
@@ -43,6 +44,10 @@ class MainActivity : AppCompatActivity() {
         btn_getText.setOnClickListener {    // 에딧 텍스트 값 가져와 뿌려주기
             var resultTest = et_id.text.toString() // 에딧 텍스으 값
             tv_title.setText(resultTest) //텍스트 값 변경
+        }
+        btn_recy.setOnClickListener {
+            var intent = Intent(this, RecyclerActivity::class.java)
+            startActivity(intent)
         }
         btn_a.setOnClickListener {
             // var : 값이 변경 가능
@@ -108,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    // 이미지 파일 생성
+    // 이미지 파일 생성, 임시 파일에 생성
     private fun createImageFile(): File {
         //날짜 형태로 이름을 설정 변수 생성
         val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -178,6 +183,17 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun savePhoto(bitmap: Bitmap) {
-
+        //사진 폴더로 저장하기 위한 경로 선언
+        val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/"
+        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val fileName = "${timestamp}.jpeg"
+        val folder = File(folderPath)
+        if (!folder.isDirectory) { // 현재 해당 경로에서 Pictures라는 폴더가 존재하는지 검사
+            folder.mkdir() // 해당 경로에 폴더 자동 생성
+        }
+        // 실제적인 저장 처리
+        val out = FileOutputStream(folderPath + fileName)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out) // bitmap을 압축
+        Toast.makeText(this, "사진이 앨범에 저장 되었습니다",Toast.LENGTH_SHORT).show()
     }
 }
