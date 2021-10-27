@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".FragActivity"
+            android:exported="true" />
+        <activity
             android:name=".RecyclerActivity"
             android:exported="true" />
         <activity

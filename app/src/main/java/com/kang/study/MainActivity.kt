@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -40,6 +41,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //R은 res를 의미  res > layout > activity_main 을 불러와 연결
         setContentView(R.layout.activity_main)
+        var a : Int = 0
+
+        a = 2
+        if(a == 2){
+            Log.d("if 문", "enter")
+        } else {
+            Log.d("else if 문", "enter")
+        }
+
 
         btn_getText.setOnClickListener {    // 에딧 텍스트 값 가져와 뿌려주기
             var resultTest = et_id.text.toString() // 에딧 텍스으 값
@@ -47,6 +57,10 @@ class MainActivity : AppCompatActivity() {
         }
         btn_recy.setOnClickListener {
             var intent = Intent(this, RecyclerActivity::class.java)
+            startActivity(intent)
+        }
+        btn_frag.setOnClickListener {
+            var intent = Intent(this, FragActivity::class.java)
             startActivity(intent)
         }
         btn_a.setOnClickListener {

@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class Fragment1: Fragment() {
+class Fragment3: Fragment() {
     // 프래그먼트가 실행될 때 수행
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.frag1, container, false) //레이아웃 연결
+        val view = inflater.inflate(R.layout.frag3, container, false) //레이아웃 연결
 
         return view
     }
